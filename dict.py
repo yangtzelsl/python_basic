@@ -57,3 +57,11 @@ print(dict10)
 # 8、radiansdict.setdefault(key, default=None)：和get()类似, 但如果键不已经存在于字典中，将会添加键并将值设为default
 # 9、radiansdict.update(dict2)：把字典dict2的键/值对更新到dict里
 # 10、radiansdict.values()：以列表返回字典中的所有值
+
+# 访问dict中没有的对应key的项目
+# 如果字典window_counts中没有key==char的项，
+# 则get()函数返回0，此时将在字典window_counts创建一个新的项。
+window_counts = {}
+window_counts['char'] = window_counts.get('char', 0)
+print(window_counts)
+
