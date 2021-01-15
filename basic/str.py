@@ -136,3 +136,7 @@ print(ret)  # 输出Alexalec
 s = "alEx Alec"
 ret = s.zfill(11)
 print(ret)  # 输出结果    00alEx Alec
+
+a = 10
+b = 20
+print("数据分别为：a={}, b={}".format(a,b))

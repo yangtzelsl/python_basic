@@ -210,6 +210,7 @@ if __name__ == '__main__':
         append_to_hdfs(client, hdfs_path,
                        key + "=" + json.dumps(json.dumps(properties_json[key]), indent=4, ensure_ascii=False)[
                                    1:-1] + "\n")
+    print("success")
 
     # 7.移动文件或重命名
     # move_or_rename(client,'/input/2.csv', '/input/emp.csv')
