@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import json
+import time
+import random
 
 from kafka import KafkaProducer
 
@@ -22,32 +24,32 @@ producer = KafkaProducer(
 
 # 构造数据
 msg_dict = {
-    "id": 1238123899121,
-    "name": "asdlkjasjkdla998y1122",
-    "date1": "1990-10-14",
+    "id": random.randint(1000, 9999),
+    "name": "asdlkjasjkdla998y1122"+str(random.randint(0, 9)),
+    "date1": time.strftime("%Y-%m-%d", time.localtime()),
     "obj1": {
-        "time1": "12:12:43",
+        "time1": time.strftime("%H:%M:%S", time.localtime()),
         "str1": "sfasfafs",
         "long1": 2324342345
     },
     "arr1": [
         {
             "f1": "f1str11",
-            "f2": 134
+            "f2": random.randint(0, 9)
         },
         {
             "f1": "f1str22",
-            "f2": 555
+            "f2": random.randint(0, 100)
         }
     ],
-    "time1": "12:12:43",
-    "timestamp1": "1990-10-14 12:12:43",
+    "time1": time.strftime("%H:%M:%S", time.localtime()),
+    "timestamp1": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
     "map1": {
-        "flink": 123
+        "flink": random.randint(10, 1000)
     },
     "mapinmap": {
         "inner_map": {
-            "key1": 234
+            "key1": random.randint(2, 8)
         }
     }
 }
