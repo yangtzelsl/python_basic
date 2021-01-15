@@ -16,7 +16,7 @@ producer = KafkaProducer(
     request_timeout_ms=4000,
     security_protocol=SECURITY_PROTOCOL,
     sasl_mechanism=SASL_MECHANSIM,
-    sasl_plain_username=PRODUCER_SASL_PLAIN_PASSWORD,
+    sasl_plain_username=PRODUCER_SASL_PLAIN_USERNAME,
     sasl_plain_password=PRODUCER_SASL_PLAIN_PASSWORD
 )
 
@@ -40,8 +40,8 @@ msg_dict = {
             "f2": 555
         }
     ],
-    "time1": "12:12:43Z",
-    "timestamp1": "1990-10-14T12:12:43Z",
+    "time1": "12:12:43",
+    "timestamp1": "1990-10-14 12:12:43",
     "map1": {
         "flink": 123
     },
@@ -59,14 +59,14 @@ msg_dict1 = {
         "long1": 2324342345
     }
 }
-msg = json.dumps(msg_dict1, ensure_ascii=False)
+msg = json.dumps(msg_dict, ensure_ascii=False)
 
 topic = "flink_type"
 
 # 发送消息
 producer.send(topic, value=str.encode(msg))
 producer.flush()
-print("消息发送完毕: " + str(msg_dict1))
+print("消息发送完毕: " + str(msg_dict))
 
 # 关闭资源
 producer.close()
