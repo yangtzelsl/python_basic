@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import datetime
 import json
-import time
 import random
+import string
+import time
 
 from kafka import KafkaProducer
 
@@ -25,8 +27,8 @@ producer = KafkaProducer(
 # 构造数据
 msg_dict = {
     "id": random.randint(1000, 9999),
-    "name": "asdlkjasjkdla998y1122"+str(random.randint(0, 9)),
-    "date1": time.strftime("%Y-%m-%d", time.localtime()),
+    "name": ''.join(random.sample(string.ascii_letters + string.digits, 8)),
+    "date1": (datetime.datetime.now() + datetime.timedelta(days=random.randint(0, 30))).strftime("%Y-%m-%d"),
     "obj1": {
         "time1": time.strftime("%H:%M:%S", time.localtime()),
         "str1": "sfasfafs",
