@@ -63,14 +63,29 @@ msg_dict1 = {
         "long1": 2324342345
     }
 }
-msg = json.dumps(msg_dict, ensure_ascii=False)
+msg_dict2 = {
+    "id": random.randint(1000, 9999),
+    "name": ''.join(random.sample(string.ascii_letters + string.digits, 8)),
+    "date1": (datetime.datetime.now() + datetime.timedelta(days=random.randint(0, 30))).strftime("%Y-%m-%d"),
+    "obj1": {
+        "time1": time.strftime("%H:%M:%S", time.localtime()),
+        "str1": "sfasfafs",
+        "long1": 2324342345
+    },
+    "time1": time.strftime("%H:%M:%S", time.localtime()),
+    "timestamp1": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+    "map1": {
+        "flink": random.randint(10, 1000)
+    }
+}
+msg = json.dumps(msg_dict2, ensure_ascii=False)
 
 topic = "flink_type"
 
 # 发送消息
 producer.send(topic, value=str.encode(msg))
 producer.flush()
-print("消息发送完毕: " + str(msg_dict))
+print("消息发送完毕: " + str(msg_dict2))
 
 # 关闭资源
 producer.close()
