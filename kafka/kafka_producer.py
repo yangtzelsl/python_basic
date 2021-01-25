@@ -63,7 +63,7 @@ msg_dict1 = {
         "long1": 2324342345
     }
 }
-msg_dict2 = {
+msg_dict_hive = {
     "id": random.randint(1000, 9999),
     "name": ''.join(random.sample(string.ascii_letters + string.digits, 8)),
     "date1": (datetime.datetime.now() + datetime.timedelta(days=random.randint(0, 30))).strftime("%Y-%m-%d"),
@@ -72,20 +72,85 @@ msg_dict2 = {
         "str1": "sfasfafs",
         "long1": 2324342345
     },
-    "time1": time.strftime("%H:%M:%S", time.localtime()),
-    "timestamp1": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+    "time2": time.strftime("%H:%M:%S", time.localtime()),
+    "timestamp1": (datetime.datetime.now() + datetime.timedelta(days=random.randint(0, 30))).strftime(
+        "%Y-%m-%d %H:%M:%S"),
     "map1": {
         "flink": random.randint(10, 1000)
     }
 }
-msg = json.dumps(msg_dict2, ensure_ascii=False)
+msg_dict_flink_array = {
+    "id": random.randint(1000, 9999),
+    "name": ''.join(random.sample(string.ascii_letters + string.digits, 8)),
+    "date1": (datetime.datetime.now() + datetime.timedelta(days=random.randint(0, 30))).strftime("%Y-%m-%d"),
+    "obj1": {
+        "time1": time.strftime("%H:%M:%S", time.localtime()),
+        "str1": "sfasfafs",
+        "long1": 2324342345
+    },
+    "arr1": [
+        {
+            "f1": "f1str11",
+            "f2": 134
+        },
+        {
+            "f1": "f1str22",
+            "f2": 555
+        }
+    ],
+    "time2": time.strftime("%H:%M:%S", time.localtime()),
+    "timestamp1": (datetime.datetime.now() + datetime.timedelta(days=random.randint(0, 30))).strftime(
+        "%Y-%m-%d %H:%M:%S"),
+    "map1": {
+        "flink": random.randint(10, 1000)
+    },
+    "map_in_map": {
+        "inner_map1": {
+            "key1": 234
+        }
+    },
+    "map_in_map_in_array": {
+        "inner_map2": [
+            {
+                "a1": "f1str11",
+                "a2": 134
+            },
+            {
+                "a1": "f1str11",
+                "a2": 555
+            }
+        ]
+    },
+    "map_in_map_in_array2": {
+        "inner_map3": ["aaaa", "bbbbbb"]
+    }
+}
 
-topic = "flink_type"
 
-# 发送消息
-producer.send(topic, value=str.encode(msg))
-producer.flush()
-print("消息发送完毕: " + str(msg_dict2))
+def test_hive(msg, topic):
+    msg_json = json.dumps(msg, ensure_ascii=False)
 
-# 关闭资源
-producer.close()
+    # 发送消息
+    producer.send(topic, value=str.encode(msg_json))
+    producer.flush()
+    print("消息发送完毕: " + str(msg_json))
+
+    # 关闭资源
+    producer.close()
+
+
+def test_flink_array(msg, topic):
+    msg_json = json.dumps(msg, ensure_ascii=False)
+
+    # 发送消息
+    producer.send(topic, value=str.encode(msg_json))
+    producer.flush()
+    print("消息发送完毕: " + str(msg_json))
+
+    # 关闭资源
+    producer.close()
+
+
+if __name__ == "__main__":
+    topic = "flink_obj_array"
+    test_flink_array(msg_dict_flink_array, topic)

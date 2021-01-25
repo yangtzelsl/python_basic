@@ -136,7 +136,7 @@ class Soluation(object):
         'is_generic'='false')
         """
 
-        flink_insert_sql = "INSERT INTO {sink} select {para} from source_{ta} where table_type='{type}' "
+        flink_insert_sql = "INSERT INTO {sink} select {field}, count(*) from source_{ta} where table_type='{type}' group by '{field}' "
 
         for table in source:
             # 每次遍历会先清空
@@ -154,7 +154,7 @@ class Soluation(object):
             result[table]["process"] = flink_insert_sql.format(
                 sink=table,
                 ta=table,
-                para=self.flat_sql(
+                field=self.flat_sql(
                     source[table]["check_rule"]) + ", cast(DATE_FORMAT(data.gather_time,'yyyyMMdd') as int)",
                 type=table.split("_")[-1]
             ) + " "
@@ -173,4 +173,4 @@ if __name__ == "__main__":
     str1 = """
     {"telegram_comment":{"check_rule":{"data":{"forward_group_id":{"empty":true,"max_len":32,"optional":true,"type":"string"},"forward_user_id":{"empty":true,"max_len":32,"optional":true,"type":"string"}},"platform":{"enumerate":["telegram"],"type":"string"},"push_time":{"gte":["data","gather_time"],"type":"datetime"},"table_type":{"enumerate":["comment"],"type":"string"},"uuid":{"len":32,"type":"string"},"vendor":{"enumerate":["ws"],"type":"string"}}}}
     """
-    # print(json.dumps(Soluation().process(json.loads(str1))))
+    print(json.dumps(Soluation().process(json.loads(str1))))

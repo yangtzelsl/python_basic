@@ -16,7 +16,7 @@ KAFKA_SETTINGS = """
 """
 
 
-class Soluation(object):
+class Solution(object):
     def __init__(self):
         self.py_json_to_dsl = {
             # unicode是python2支持的语法, python3支持为str
@@ -26,7 +26,7 @@ class Soluation(object):
             float: "decimal",
             bool: "boolean",
             None: "null",
-            list: "list"
+            list: "array"
             # python3只有int,没有long
             # long: "long"
         }
@@ -38,7 +38,7 @@ class Soluation(object):
             "null": "string",
             "datetime": "string",
             "long": "BIGINT",
-            "list": "ARRAY"
+            "array": "ARRAY"
         }
         self.dsl_to_hive_sql = {
             "string": "string",
@@ -92,6 +92,7 @@ class Soluation(object):
                         sql += "`" + key + "`" + "  " + "BIGINT"
                 else:
                     sql += "`" + key + "`" + "  " + self.dsl_to_flink_sql[dsl[key]["type"]]
+            # 对象类型，递归
             else:
                 sql += "`" + key + "`" + " ROW<{0}>".format(self.flink_source_schema(dsl[key]))
         return sql
@@ -167,9 +168,10 @@ class Soluation(object):
 
 
 if __name__ == "__main__":
-    str3 = '{"vendor": "tg", "push_time": 1609205855, "platform": "facebook", "uuid": "2b6018bc73c33c5e8635b316cb8ea657", "table_type": "post", "data": {"timeline_like_count": 0, "timeline_longitude": null, "love_count": 0, "timeline_comment_count": 0, "timeline_create_time": "2020-12-29 09:16:44", "timeline_is_original": 0, "author_name": "Eddie Mak", "timeline_content": "", "timeline_loaction": null, "file_info": "", "author_id": "1045483254", "gather_time": "2020-12-29 09:37:34", "timeline_share_title": "\u4eab\u53d7\u7535\u5f71 was live.", "hug_count": 0, "haha_count": 0, "sad_count": 0, "wow_count": 0, "timeline_latitude": null, "timeline_url": "https://www.facebook.com/story.php?story_fbid=10222560832223281&id=1045483254", "timeline_share_content": "\u4e00\u65e9\u8a71\u4f50 \u505a\u53e4\u60d1\u4ed4\u9072\u65e9\u6a6b\u5c38\u8857\u982d \u9023\u8001\u5a46\u90fd\u6703\u88ab\u4eba\u641e", "timeline_title": "Eddie Mak", "collect_company": "TG", "timeline_feedback_id": "1045483254_10222560832223281", "timeline_id": "10222560832223281", "angry_count": 0, "update_time": "2020-12-29 09:16:44", "timeline_share_count": 0}}'
-    # str2 = '{"id":7106,"name":"KuxQVF1a","date1":"2021-02-06","obj1":{"time1":"14:26:50","str1":"sfasfafs","long1":2324342345},"arr1":[{"f1":"f1str11","f2":8},{"f1":"f1str22","f2":5}],"time1":"14:26:50","timestamp1":"2021-01-19 14:26:50","map1":{"flink":830},"mapinmap":{"inner_map":{"key1":7}}}'
-    s = Soluation().source_dfs(json.loads(str3), {})
+    # str3 = '{"vendor": "tg", "push_time": 1609205855, "platform": "facebook", "uuid": "2b6018bc73c33c5e8635b316cb8ea657", "table_type": "post", "data": {"timeline_like_count": 0, "timeline_longitude": null, "love_count": 0, "timeline_comment_count": 0, "timeline_create_time": "2020-12-29 09:16:44", "timeline_is_original": 0, "author_name": "Eddie Mak", "timeline_content": "", "timeline_loaction": null, "file_info": "", "author_id": "1045483254", "gather_time": "2020-12-29 09:37:34", "timeline_share_title": "\u4eab\u53d7\u7535\u5f71 was live.", "hug_count": 0, "haha_count": 0, "sad_count": 0, "wow_count": 0, "timeline_latitude": null, "timeline_url": "https://www.facebook.com/story.php?story_fbid=10222560832223281&id=1045483254", "timeline_share_content": "\u4e00\u65e9\u8a71\u4f50 \u505a\u53e4\u60d1\u4ed4\u9072\u65e9\u6a6b\u5c38\u8857\u982d \u9023\u8001\u5a46\u90fd\u6703\u88ab\u4eba\u641e", "timeline_title": "Eddie Mak", "collect_company": "TG", "timeline_feedback_id": "1045483254_10222560832223281", "timeline_id": "10222560832223281", "angry_count": 0, "update_time": "2020-12-29 09:16:44", "timeline_share_count": 0}}'
+    str2 = '{"id":7106,"name":"KuxQVF1a","date1":"2021-02-06","obj1":{"time1":"14:26:50","str1":"sfasfafs","long1":2324342345},"arr1":[{"f1":"f1str11","f2":8},{"f1":"f1str22","f2":5}],"time1":"14:26:50","timestamp1":"2021-01-19 14:26:50","map1":{"flink":830},"mapinmap":{"inner_map":{"key1":7}}}'
+    str4 = '{"id":3537,"name":"Lz2yM03A","date1":"2021-02-17","obj1":{"time1":"17:50:19","str1":"sfasfafs","long1":2324342345},"time1":"17:50:19","timestamp1":"2021-01-19 17:50:19","map1":{"flink":842}}'
+    s = Solution().source_dfs(json.loads(str4), {})
 
     json_s = json.dumps(s)
     # print(json_s)
@@ -181,5 +183,5 @@ if __name__ == "__main__":
     # print(json.loads(str1))
     # print(type(json.loads(str1)))
 
-    process = Soluation().process(json.loads(json_s))
+    process = Solution().process(json.loads(json_s))
     print(json.dumps(process))
