@@ -19,17 +19,56 @@ dict2 = {
     "id": {"type": "bigint"}
 }
 
-for key in dict1.keys():
-    # print(key)
-    # print(key, dict1.get(key))
-    if key == "mapping":
-        dict_value = dict1.get(key)
-        for tmp in dict_value:
-            print(tmp, dict_value.get(tmp))
-            for obj in dict_value.get(tmp):
-                print(obj)
 
-    if key == "fields":
-        dict_value = dict1.get(key)
-        for tmp in dict_value:
-            print(tmp)
+def test():
+    b_dict = {}
+    for key in dict1.keys():
+        # print(key)
+        # print(key, dict1.get(key))
+        new_dict = {}
+        if key == "mapping":
+            dict_value = dict1.get(key)
+            for tmp in dict_value:
+                new_dict = {tmp: dict_value.get(tmp)}
+                # print(tmp, dict_value.get(tmp))
+                # for obj in dict_value.get(tmp):
+                #     print(obj)
+
+        if key == "fields":
+            dict_fields = dict1.get("fields")
+            # 遍历字段
+            for fields in dict_fields:
+                dict_mapping = dict1.get('mapping')
+                # 遍历映射
+                for mapping_key in dict_mapping:
+                    inner_list = []
+                    if fields.get('field_name') == mapping_key:
+                        # print(fields.get('field_type'), dict_mapping.get(mapping_key))
+                        list_mapping = dict_mapping.get(mapping_key)
+                        if len(list_mapping) == 1:
+                            b_dict = {list_mapping[0]: {"type": fields.get('field_type')}}
+                        elif len(list_mapping) > 1:
+                            inner_list.append({list_mapping[1]: {"type": fields.get('field_type')}})
+                            b_dict = {list_mapping[0]: inner_list}
+
+
+b_dict = {}
+inner_list = []
+dict_fields = dict1.get("fields")
+# 遍历字段
+for fields in dict_fields:
+    dict_mapping = dict1.get('mapping')
+    # 遍历映射
+    for mapping_key in dict_mapping:
+        if fields.get('field_name') == mapping_key:
+            # print(fields.get('field_type'), dict_mapping.get(mapping_key))
+            list_mapping = dict_mapping.get(mapping_key)
+            if len(list_mapping) < 1:
+                print("有错误!!!")
+                pass
+            elif len(list_mapping) == 1:
+                b_dict[list_mapping[0]] = {"type": fields.get('field_type')}
+            else:
+                inner_list.append({list_mapping[1]: {"type": fields.get('field_type')}})
+                b_dict[list_mapping[0]] = inner_list
+print(b_dict)
