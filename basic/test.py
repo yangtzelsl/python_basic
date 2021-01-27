@@ -12,7 +12,7 @@ dict1 = {'create_by': '',
          'storage_cluster': 30001,
          'fields': [{'field_name': 'id', 'alias': 'id', 'field_type': 'bigint', 'is_dimension': 0},
                     {'field_name': 'inner', 'alias': 'str1', 'field_type': 'string', 'is_dimension': 0},
-                    {'field_name': 'inner', 'alias': 'str2', 'field_type': 'string', 'is_dimension': 0}
+                    {'field_name': 'str2', 'alias': 'str2', 'field_type': 'string', 'is_dimension': 0}
                     ]
          }
 # 当前如果内层和外层出现同名的key值，虽然路径不同，但这种映射方式会出现问题
@@ -81,7 +81,7 @@ for fields in dict_fields:
 print(b_dict)
 
 
-def route_to_json():
+def route_to_json1():
     js = dict()
     for each in dict1["mapping"]:
         step = js
@@ -100,13 +100,12 @@ def route_to_json():
     print("json build ok")
 
 
-def route_to_json2():
+def route_to_json():
     js = dict()
     # prepare
     type_dic = dict()
     for each in dict1["fields"]:
         type_dic.setdefault(each["field_name"], each["field_type"])
-    # [type_dic.setdefault(each["field_name"], each["field_type"]) for each in dict1["fields"]]
 
     for each in dict1["mapping"]:
         step = js
@@ -122,9 +121,9 @@ def route_to_json2():
             last_road = road
 
         step.setdefault("type", type_dic.get(last_road))
-    print(json.dumps(js))
-    print("json build ok")
+    return json.dumps(js)
 
 
 if __name__ == "__main__":
-    route_to_json2()
+    result = route_to_json1()
+    print(result)

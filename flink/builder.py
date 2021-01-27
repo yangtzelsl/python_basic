@@ -129,7 +129,7 @@ class Solution(object):
     def process(self, source):
         result = {}
 
-        flink_create_sql = " ({schema}) "
+        flink_create_sql = " {schema} "
 
         hive_create_sql = """
         create table {ta} ({schema}) 
@@ -182,6 +182,10 @@ if __name__ == "__main__":
     """
     # print(json.loads(str1))
     # print(type(json.loads(str1)))
+
+    test_str = """
+    {"id": {"type": "int"}, "obj1": {"str1": {"type": "string"}, "str2": {"type": "string"}}, "timestamp1": {"type": "datetime"}}
+    """
 
     process = Solution().process(json.loads(json_s))
     print(json.dumps(process))
