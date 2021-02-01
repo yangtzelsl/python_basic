@@ -164,7 +164,10 @@ class Soluation(object):
 
 if __name__ == "__main__":
     stri = '{"vendor": "tg", "push_time": 1609205855, "platform": "facebook", "uuid": "2b6018bc73c33c5e8635b316cb8ea657", "table_type": "post", "data": {"timeline_like_count": 0, "timeline_longitude": null, "love_count": 0, "timeline_comment_count": 0, "timeline_create_time": "2020-12-29 09:16:44", "timeline_is_original": 0, "author_name": "Eddie Mak", "timeline_content": "", "timeline_loaction": null, "file_info": "", "author_id": "1045483254", "gather_time": "2020-12-29 09:37:34", "timeline_share_title": "\u4eab\u53d7\u7535\u5f71 was live.", "hug_count": 0, "haha_count": 0, "sad_count": 0, "wow_count": 0, "timeline_latitude": null, "timeline_url": "https://www.facebook.com/story.php?story_fbid=10222560832223281&id=1045483254", "timeline_share_content": "\u4e00\u65e9\u8a71\u4f50 \u505a\u53e4\u60d1\u4ed4\u9072\u65e9\u6a6b\u5c38\u8857\u982d \u9023\u8001\u5a46\u90fd\u6703\u88ab\u4eba\u641e", "timeline_title": "Eddie Mak", "collect_company": "TG", "timeline_feedback_id": "1045483254_10222560832223281", "timeline_id": "10222560832223281", "angry_count": 0, "update_time": "2020-12-29 09:16:44", "timeline_share_count": 0}}'
-    s = Soluation().source_dfs(json.loads(stri), {})
+    teststr = """
+    {"vendor": "onion_suprbay_bbs_spider", "push_time": 1611283756, "full_eid": "", "spec_eid ": "b8a9b0fce9567480f82dcc926524b17740e7e138", "type": "spec", "index_type": "user", "data": {"user_name": "H4ckus10", "domain": "suprbayoubiexnmp.onion", "crawl_time": "2021-01-22T02:49:16", "url": "http://suprbayoubiexnmp.onion/User-H4ckus10", "user_id": "161996", "topic_nums": 25, "ratings": "-40", "raw_last_active_time": "Apr 06, 2016", "last_active_time": "2016-04-06T00:00:00", "user_img_url": "http://i.imgur.com/zREZGRb.jpg?dateline=1459870143", "member_degree": "administrator", "gmt_create": "2021-01-22T02:49:16", "gmt_modified": "2021-01-22T02:49:16", "is_analyzed": false, "is_portraited": false, "spider_name": "onion_suprbay_bbs_spider", "net_type": "tor"}}
+    """
+    s = Soluation().source_dfs(json.loads(teststr), {})
     print(json.dumps(s))
 
     #     str = """
@@ -174,7 +177,11 @@ if __name__ == "__main__":
     {"telegram_comment":{"check_rule":{"data":{"forward_group_id":{"empty":true,"max_len":32,"optional":true,"type":"string"},"forward_user_id":{"empty":true,"max_len":32,"optional":true,"type":"string"}},"platform":{"enumerate":["telegram"],"type":"string"},"push_time":{"gte":["data","gather_time"],"type":"datetime"},"table_type":{"enumerate":["comment"],"type":"string"},"uuid":{"len":32,"type":"string"},"vendor":{"enumerate":["ws"],"type":"string"}}}}
     """
 
-    str2 = """
+    str3 = """
     {"a":{"check_rule":{"id": {"type": "int"}, "obj1": {"str1": {"type": "string"}, "str2": {"type": "string"}}, "timestamp1": {"type": "datetime"}}}}
     """
+    str2 = """
+       {"a":{"check_rule": {"vendor": {"type": "string"}, "push_time": {"type": "int"}, "full_eid": {"type": "string"}, "spec_eid ": {"type": "string"}, "type": {"type": "string"}, "index_type": {"type": "string"}, "data": {"domain": {"type": "string"}, "net_type": {"type": "string"}, "spider_name": {"type": "string"}, "url": {"type": "string"}, "goods_name": {"type": "string"}, "user_id": {"type": "string"}, "user_name": {"type": "string"}, "commented_id": {"type": "string"}, "comment_type": {"type": "string"}, "raw_content": {"type": "string"}, "content": {"type": "string"}, "crawl_time": {"type": "string"}, "gmt_create": {"type": "string"}, "gmt_modified": {"type": "string"}}}}}
+        """
+
     print(json.dumps(Soluation().process(json.loads(str2))))
