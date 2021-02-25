@@ -78,7 +78,7 @@ for fields in dict_fields:
                 # inner_list.append({list_mapping[1]: {"type": fields.get('field_type')}})
                 b_dict.setdefault("type", fields.get('field_type'))
                 # b_dict[list_mapping[0]] = inner_list
-print(b_dict)
+# print(b_dict)
 
 
 def route_to_json1():
@@ -125,5 +125,11 @@ def route_to_json():
 
 
 if __name__ == "__main__":
-    result = route_to_json1()
-    print(result)
+    # result = route_to_json1()
+    # print(result)
+    teststr = """
+    {"vendor":"black_market_spider","push_time":1613707211,"full_eid":"","spec_eid ":"ab0d3ba52adc4252a4c3aad369d2575486459ca6","type":"spec","index_type":"goods","data":{"crawl_time":"2021-02-19T04:00:11","domain":"5xxqhn7qbtug7cag.onion","net_type":"tor","spider_name":"black_market_spider","goods_name":"Heckler & Koch MP5 A5 .22LR","goods_id":"Heckler & Koch MP5 A5 .22LR","url":"http://5xxqhn7qbtug7cag.onion/","goods_info":"Caliber: .22LR\r\n\r\nCapacity: Two 25 round magazines included\r\n\r\nBarrel: 16.1\", 1:13.75\" Twist\r\n\r\nLength: 26.8\" - 33.8\"\r\n\r\nWeight: ~6 pounds","goods_img_url":["http://5xxqhn7qbtug7cag.onion/more/hkmp5.jpg"],"crawl_category":"数据","crawl_category_1":["数据"],"goods_type":["数据"],"goods_tag":["数据"],"goods_buyer":["1美元  2020   12000","2美元  2020   12000"],"sold_count":112,"price":["$400"],"user_id":"BMG","user_name":"BMG","goods_area":"USA","goods_ship_to":["USA"],"publish_time":"2021-02-19T04:00:11","raw_publish_time":"2021年2月19日","goods_update_time":"2021-02-19T04:00:11","goods_browse_count":1,"goods_feedback_count":1,"goods_acquisition_count":1,"goods_accepted_crypto_currency":["BTC","ETH"],"goods_payment_method":"onion","sku_quantify":100,"price_quantify":400,"sku":"100件","bitcoin_addresses":[],"eth_addresses":[],"is_extracted":false,"is_relation_extracted":false,"is_analyzed":false,"gmt_create":"2021-02-19T04:00:11","gmt_modified":"2021-02-19T04:00:11"}}
+    """
+    # （1）""""""三引号里面的内容是python str（不是json），dumps先转成json,
+    # （2）loads再将json转成需要的python 对象
+    print(json.loads(json.dumps(teststr)))
