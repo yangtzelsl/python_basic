@@ -3,4 +3,5 @@ hdfs
 pyhs2
 elasticsearch
 impaly
+sqllineage
 
