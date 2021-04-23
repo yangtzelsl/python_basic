@@ -1,3 +1,7 @@
+# 注意这两行代码要放最上面，放其它地方不行
+import findspark
+
+findspark.init()
 import sys
 from operator import add
 
@@ -27,7 +31,7 @@ if __name__ == "__main__":
     counts = lines.flatMap(lambda x: x.split(' ')) \
         .map(lambda x: (x, 1)) \
         .reduceByKey(add) \
-    # .reduceByKey((lambda a, b: a + b))
+        # .reduceByKey((lambda a, b: a + b))
 
     # collect() 在驱动程序中将数据集的所有元素作为数组返回。 这在返回足够小的数据子集的过滤器或其他操作之后通常是有用的。由于collect 是将整个RDD汇聚到一台机子上，所以通常需要预估返回数据集的大小以免溢出。
     output = counts.collect()

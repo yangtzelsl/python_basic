@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*-conding:utf-8-*-
+# 注意这两行代码要放最上面，放其它地方不行
+import findspark
 
+findspark.init()
 import logging
 
 from pyspark import SparkContext
@@ -17,9 +20,9 @@ sc = SparkContext("local", "wordcount app")
 text_file = sc.textFile(test_file_name)
 
 # counts
-counts = text_file\
-    .flatMap(lambda line: line.split(" "))\
-    .map(lambda word: (word, 1))\
+counts = text_file \
+    .flatMap(lambda line: line.split(" ")) \
+    .map(lambda word: (word, 1)) \
     .reduceByKey(lambda a, b: a + b)
 
 # counts.saveAsTextFile(out_file_name)
