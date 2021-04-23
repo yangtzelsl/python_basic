@@ -4,4 +4,5 @@ pyhs2
 elasticsearch
 impaly
 sqllineage
+pyspark
 
