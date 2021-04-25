@@ -1,3 +1,7 @@
+# 注意这两行代码要放最上面，放其它地方不行
+import findspark
+
+findspark.init()
 import sys
 from operator import add
 

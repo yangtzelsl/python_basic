@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*-conding:utf-8-*-
+# 注意这两行代码要放最上面，放其它地方不行
+import findspark
 
+findspark.init()
 import logging
 
 from pyspark import SparkContext

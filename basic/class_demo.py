@@ -33,11 +33,16 @@ print(id(MyClass), type(MyClass), MyClass)
 
 class Person(object):
     def __init__(self):
+        """
+       双下划线开头和结尾的方法叫特殊方法(魔术方法)，不需要人为调用
+       1.特殊方法什么时候调用
+       2.特殊方法有什么作用
+       """
         self.name = None
         self.age = 0
 
     def speak(self):
-        print("name=", self.name, "age=", self.age)
+        print(self, "name=", self.name, "age=", self.age)
 
     def eat(self):
         pass
