@@ -6,4 +6,6 @@ impaly
 sqllineage
 pyspark
 findspark
+numpy
+pandas
 
