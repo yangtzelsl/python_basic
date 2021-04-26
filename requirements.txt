@@ -5,4 +5,5 @@ elasticsearch
 impaly
 sqllineage
 pyspark
+findspark
 
