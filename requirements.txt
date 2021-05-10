@@ -8,4 +8,6 @@ pyspark
 findspark
 numpy
 pandas
+pymongo
+bson
 
