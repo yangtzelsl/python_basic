@@ -19,7 +19,7 @@ producer = KafkaProducer(
     max_block_ms=6000,
     request_timeout_ms=4000,
     security_protocol=SECURITY_PROTOCOL,
-    sasl_mechanism=SASL_MECHANSIM,
+    sasl_mechanism=SASL_MECHANISM,
     sasl_plain_username=PRODUCER_SASL_PLAIN_USERNAME,
     sasl_plain_password=PRODUCER_SASL_PLAIN_PASSWORD
 )
