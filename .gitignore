@@ -130,5 +130,5 @@ dmypy.json
 .pyre/
 
 # 配置文件
-settings.py
+# settings.py
 logs/
