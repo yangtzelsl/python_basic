@@ -1,4 +1,4 @@
-# -*- coding:UTF-8 -*-成都
+# -*- coding:UTF-8 -*-
 import logging
 import os
 import time
