@@ -1,12 +1,13 @@
 import requests
 
-app_id = '<APP_ID>'
-report_type = '<REPORT_TYPE>'
+# id1503443165 |
+app_id = ''
+report_type = 'installs_report'
 
 params = {
-  'api_token': '<API_TOKEN>',
-  'from': 'FROM_DATE',
-  'to': 'TO_DATE'
+  'api_token': '',
+  'from': '2021-10-15',
+  'to': '2021-12-15'
 }
 
 request_url = 'https://hq.appsflyer.com/export/{}/{}/v5'.format(app_id, report_type)

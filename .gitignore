@@ -132,3 +132,5 @@ dmypy.json
 # 配置文件
 settings.py
 logs/
+
+*.csv
