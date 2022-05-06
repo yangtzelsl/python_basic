@@ -25,10 +25,10 @@ def option_parser():
     return parser
 
 
-def robot(key, data):
+def robot(webhook, data):
     # 企业微信机器人的 webhook
     # 开发文档 https://work.weixin.qq.com/api/doc#90000/90136/91770
-    webhook = f"https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}"
+    # wechat_webhook = f"https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}"
     headers = {'content-type': 'application/json'}  # 请求头
     r = requests.post(webhook, headers=headers, data=json.dumps(data))
     r.encoding = 'utf-8'
@@ -37,16 +37,16 @@ def robot(key, data):
     return r.text
 
 
-def bot_push(key, data):
+def bot_push(webhook, data):
     try:
-        res = robot(key, data)
+        res = robot(webhook, data)
         print(f'webhook 发出完毕: {res}')
         return res
     except Exception as e:
         print(e)
 
 
-def bot_push_markdown(key, msg):
+def wechat_bot_push_markdown(webhook, msg):
     """
     发送markdown格式的消息
     """
@@ -65,7 +65,23 @@ def bot_push_markdown(key, msg):
     }
 
     # 企业微信机器人发送
-    bot_push(key, webhook_data)
+    bot_push(webhook, webhook_data)
+    return None
+
+
+def slack_bot_push_markdown(webhook, msg):
+    slack_data = {
+        "blocks": [
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*实时任务延迟请相关同事注意!* \n 任务名称: "+ msg["application_name"] + "\n 任务所在机器: "+ msg["ip"]+ "\n 任务链接: ["+msg["streaming_url"]+"](" + msg["streaming_url"] + ") \n Owner: <@Luis(刘思林)> \n 任务失败时间: '""'"
+                }
+            }
+        ]
+    }
+    bot_push(webhook, slack_data)
     return None
 
 
@@ -139,6 +155,8 @@ if __name__ == '__main__':
                     # 填上对应的企业微信机器人的KEY
                     # TODO
                     wechat_key = ""
+                    wechat_webhook = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key="
+                    slack_webhook = ""
                     msg = {
                         "application_name": application_name,
                         "ip": "x.x.x.x",
@@ -147,4 +165,7 @@ if __name__ == '__main__':
                         "record": record,
                         "schedule": schedule.strip()
                     }
-                    bot_push_markdown(wechat_key, msg)
+                    # 发送企业微信告警
+                    wechat_bot_push_markdown(wechat_webhook, msg)
+                    # 发送slack告警
+                    slack_bot_push_markdown(slack_webhook,msg)
