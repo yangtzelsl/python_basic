@@ -3,8 +3,9 @@
 from selenium import webdriver
 
 # 创建浏览器对象
-path = 'chromedriver.exe'
+path = '../chromedriver.exe'
 browser = webdriver.Chrome(path)
+# browser = webdriver.Chrome()
 
 # url
 url = 'https://www.baidu.com'

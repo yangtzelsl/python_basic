@@ -13,7 +13,7 @@ request = urllib.request.Request(url = url,headers= headers)
 # response = urllib.request.urlopen(request)
 
 proxies = {
-    'http':'118.24.219.151:16817'
+    'http':'112.192.234.123:8088'
 }
 # handler  build_opener  open
 handler = urllib.request.ProxyHandler(proxies = proxies)
