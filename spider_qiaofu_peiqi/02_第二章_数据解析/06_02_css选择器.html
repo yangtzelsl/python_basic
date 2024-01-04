@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #abc{
+            color: pink;
+        }
+        li{
+            border: 1px solid red;
+        }
+        .jay{
+            color: green;
+        }
+
+        div,span{
+            background:hotpink;
+        }
+
+    /*
+        ul li{   空格表示子子孙孙, 所有后代
+            list-style: none;
+        }
+    */
+        ul > li{  /*  > 表示儿子一层*/
+            list-style: none;
+        }
+
+        h1 + h2{
+            color: red;
+        }
+
+        a[target]{
+            color: green;
+        }
+
+        a[target='_blank']{
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <!--
+    <ul>
+        <li>周润发</li>
+        <li id="abc">黎明</li>
+        <li>周星驰</li>
+        <li>
+            <ol>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ol>
+        </li>
+    </ul>
+    <ol>
+        <li>手电筒</li>
+        <li>电视机</li>
+        <li>黑板擦</li>
+    </ol>
+    <div class="jay">呵呵哒</div>
+    <span class="jay">呵呵哒</span>
+
+    <h1>我爱麻花藤</h1>
+    <h2>我爱黎明</h2>
+    <h2>我也爱黎明</h2>
+    -->
+    <a href="#" target="_blank">我是blank</a>
+    <a href="#" target="_self">我是self</a>
+    <a href="#" >我是啥也没有</a>
+
+</body>
+</html>

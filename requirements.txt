@@ -32,4 +32,4 @@ lxml
 jsonpath
 bs4
 selenium==3.14
-
+zhipuai
