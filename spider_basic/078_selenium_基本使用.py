@@ -4,7 +4,7 @@ from selenium import webdriver
 
 # (2) 创建浏览器操作对象
 
-path = 'chromedriver.exe'
+path = '../chromedriver.exe'
 
 browser = webdriver.Chrome(path)
 
